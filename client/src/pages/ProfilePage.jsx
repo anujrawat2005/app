@@ -3,23 +3,51 @@ import { useNavigate } from 'react-router-dom'
 import assets from '../assets/assets';
 import { AuthContext } from '../../context/AuthContext';
 
+
+
+
+/**
+ * ProfilePage Component
+ *
+ * This component allows authenticated users to view and update their profile information,
+ * including their full name, bio, and profile picture.
+ */
 const ProfilePage = () => {
+  // Destructure 'authUser' (current authenticated user data) and 'updateProfile'
+  // (function to update user profile) from AuthContext.
 
   const {authUser, updateProfile} = useContext(AuthContext)
-
+  // State to hold the currently selected image file for upload.
   const [selectedImage,setSelectedImage] = useState(null)
   const navigate = useNavigate();
   const[name,setName] = useState(authUser.fullName)
   const [bio,setBio] = useState(authUser.bio)
 
 
+
+  /**
+   * Handles the form submission for updating the profile.
+   *
+   * If a new image is selected:
+   * Reads the image file as a Data URL (base64) and then calls `updateProfile`
+   * with the new image, name, and bio.
+   * If no new image is selected:
+   * Calls `updateProfile` only with the updated name and bio.
+   *
+   * After updating, it navigates the user back to the home page.
+   * @param {Event} e - The form submission event.
+   */
+
+
   const handleSubmit = async(e)=>{
     e.preventDefault();
+    // Case 1: No new image selected, update only name and bio
     if(!selectedImage){
       await updateProfile({fullName:name,bio});
       navigate('/');
       return;
     }
+     // Case 2: New image selected, read and convert to base64
     const reader=  new FileReader();
     reader.readAsDataURL(selectedImage);
     reader.onload  = async()=>{

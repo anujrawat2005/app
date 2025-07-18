@@ -5,17 +5,68 @@ import { ChatContext } from '../../context/ChatContext'
 import { AuthContext } from '../../context/AuthContext'
 import toast from 'react-hot-toast'
 
+
+/**
+ * @typedef {Object} Message
+ * @property {string} _id - Unique ID of the message.
+ * @property {string} senderId - ID of the sender.
+ * @property {string} receiverId - ID of the receiver.
+ * @property {string} [text] - Text content of the message.
+ * @property {string} [image] - Base64 encoded image string.
+ * @property {Date} createdAt - Timestamp of message creation.
+ */
+
+/**
+ * @typedef {Object} User
+ * @property {string} _id - Unique ID of the user.
+ * @property {string} fullName - Full name of the user.
+ * @property {string} profilePic - URL to the user's profile picture.
+ */
+
+/**
+ * ChatContainer Component
+ *
+ * This component renders the main chat interface, displaying messages for a selected user,
+ * handling sending text and image messages, and managing message scrolling.
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const ChatContainer = () => {
+    // Destructure values from ChatContext to manage chat-related state and functions
 
   const {messages,selectedUser,setSelectedUser,sendMessage,getMessages} = useContext(ChatContext)
+  // Destructure values from AuthContext to access authenticated user info and online status
 
   const {authUser, onlineUsers} = useContext(AuthContext)
+  // Ref to automatically scroll to the latest message in the chat view
 
   const scrollEnd = useRef()
   
   const[input,setInput]= useState('');
 
-  //handle sending message
+  /**
+   * Handles sending a text message.
+   * Prevents sending empty messages and clears the input field after sending.
+   * @param {Event} e - The form submission event.
+   */
 
   const handleSendMessages = async(e)=>{
     e.preventDefault();

@@ -6,17 +6,43 @@ import { ChatContext } from '../../context/ChatContext';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
+
+
+
+
+/**
+ * SideBar Component
+ *
+ * This component renders the left-hand sidebar of the chat application.
+ * It displays a list of users, allows searching for users, shows online/offline status,
+ * indicates unread message counts, and provides options for profile editing and logout.
+ */
+
 const SideBar = () => {
+    // Destructure values from ChatContext to manage chat-specific state and functions
 
     const {getUsers,users, selectedUser,setSelectedUser,unseenMessages,setUnseenMessages}=  useContext(ChatContext)
-
+    // Destructure values from AuthContext to access authentication state and logout function
     const{logout , onlineUsers } = useContext(AuthContext);
+
+
+  // State to manage the search input field value.
+  // Using 'input' as a boolean in the filtering seems like a potential typo or misnomer;
+  // it likely should be a string to hold the search query. Let's assume it's a string for now.
     const[input,setInput] = useState(false)
 
 
     const navigate  =useNavigate();
+
+
+  /**
+   * Filters the list of users based on the search 'input'.
+   * If 'input' is empty, it returns all users. Otherwise, it filters by full name (case-insensitive).
+   * @type {User[]}
+   */
     
     const filteredUsers =  input ? users.filter((user)=>user.fullName.toLowerCase().includes(input.toLowerCase())): users;
+
     
 
 

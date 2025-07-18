@@ -2,18 +2,43 @@ import React, { useContext, useState } from 'react'
 import assets from '../assets/assets'
 import { AuthContext } from '../../context/AuthContext'
 
+
+
+
+/**
+ * LoginPage Component
+ *
+ * This component renders the user authentication interface, allowing users to either
+ * sign up for a new account or log in to an existing one. It features a two-step
+ * signup process (first name/email/password, then bio) and handles form submissions.
+ */
 const LoginPage = () => {
+  // State to manage whether the form is in "Sign Up" or "Login" mode
 
 const [currState,setCurrState]  = useState("Sign Up")
+ // State variables for form inputs
 const [fullName,setFullName] = useState("")
 const[email,setEmail] = useState("")
 const[password,setPassword] = useState("")
 const [bio,setBio] = useState("")
+// State to control the two-step signup process:
+  // true after submitting the first part of signup, false otherwise.
 const[isDataSubmitted,setIsDataSubmitted] = useState(false);
 
 const {login} = useContext(AuthContext)
 
 
+  /**
+   * Handles the form submission.
+   *
+   * For "Sign Up" mode:
+   * - If it's the first step, it sets `isDataSubmitted` to true to show the bio field.
+   * - If it's the second step, it proceeds with the signup API call.
+   * For "Login" mode:
+   * - It directly proceeds with the login API call.
+   *
+   * @param {Event} event - The form submission event.
+   */
 
 const SubmitHandler = (event)=>{
   event.preventDefault();

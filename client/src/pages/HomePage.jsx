@@ -5,7 +5,19 @@ import RightSidebar from '../components/RightSidebar'
 import { useContext } from 'react'
 import { ChatContext } from '../../context/ChatContext'
 
+
+/**
+ * HomePage Component
+ *
+ * This component serves as the main layout for the chat application.
+ * It orchestrates the display of the SideBar, ChatContainer, and RightSidebar
+ * based on the current state of the chat, specifically whether a user is selected.
+ */
+
+
 const HomePage = () => {
+  // Destructure 'selectedUser' from ChatContext to control dynamic layout.
+  // The 'selectedUser' state determines which columns are visible in the grid.
 
   const{selectedUser} = useContext(ChatContext)
   return (

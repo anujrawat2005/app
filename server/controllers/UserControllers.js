@@ -1,7 +1,35 @@
-import cloudinary from "../lib/cloudinary.js";
-import { generateToken } from "../lib/utils.js";
-import User from "../models/user.js";
-import bcrypt, { genSalt } from "bcryptjs";
+import cloudinary from "../lib/cloudinary.js";  // Cloudinary library for image uploads
+import { generateToken } from "../lib/utils.js"; // Utility function to generate JWT tokens
+import User from "../models/user.js";   // Mongoose model for user data
+
+import bcrypt, { genSalt } from "bcryptjs";// Library for password hashing and comparison
+
+
+
+
+/**
+ * @fileoverview This file contains controller functions for user authentication
+ * (signup, login, checkAuth) and profile management (updateProfile).
+ * It handles user creation, password hashing, token generation, and profile updates
+ * including profile picture uploads to Cloudinary.
+ */
+
+/**
+ * @route POST /api/auth/signup
+ * @description Registers a new user. Hashes the password and generates a JWT token upon successful creation.
+ * @access Public
+ * @param {Object} req - The request object, containing `req.body` with `fullName`, `email`, `password`, and `bio`.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with success status, user data, JWT token, and a message.
+ */
+
+
+
+
+
+
+
+
 
 
 
@@ -36,7 +64,14 @@ export const  signup = async (req,res)=>{
     }
 }
 
-//Controller to login user 
+/**
+ * @route POST /api/auth/login
+ * @description Logs in an existing user. Compares provided password with hashed password and generates a JWT token.
+ * @access Public
+ * @param {Object} req - The request object, containing `req.body` with `email` and `password`.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with success status, user data, JWT token, and a message.
+ */
 
 export const login = async(req,res)=>{
     try {
@@ -61,14 +96,30 @@ export const login = async(req,res)=>{
     }
 
 }
-//Contoller to check if user is authenticated
+/**
+ * @route GET /api/auth/check
+ * @description Checks if the user is authenticated. This endpoint is typically hit by the client
+ * to verify the validity of their token and retrieve user data.
+ * @access Private (requires authentication middleware to populate `req.user`)
+ * @param {Object} req - The request object, containing `req.user` (populated by authentication middleware).
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with success status and the authenticated user's data.
+ */
 
 export const checkAuth = (req,res)=>{
     res.json({success:true, user: req.user});
 }
 
 
-//controller to provide user update details
+/**
+ * @route PUT /api/auth/updateProfile
+ * @description Updates the profile details of the authenticated user, including profile picture, bio, and full name.
+ * @access Private (requires authentication)
+ * @param {Object} req - The request object, containing `req.body` with `profilePic` (base64 string), `bio`, and `fullName`,
+ * and `req.user._id` (ID of the authenticated user).
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with success status and the updated user data.
+ */
 
 export const updateProfile = async(req,res)=>{
     try {

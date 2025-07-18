@@ -6,13 +6,30 @@ import { AuthContext } from '../../context/AuthContext'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
+
+/**
+ * RightSidebar Component
+ *
+ * This component displays detailed information about the currently selected user
+ * in the chat, including their profile picture, name, online status, bio,
+ * and a gallery of images shared in the conversation. It also provides a logout button.
+ */
+
+
 const RightSidebar = () => {
+  // Destructure values from ChatContext
 
   const {selectedUser, messages} = useContext(ChatContext)
+  // Destructure values from AuthContext
   const{logout,onlineUsers} = useContext(AuthContext)
   const[msgImages,setMsgImages] = useState([])
 
   //get all the image from message and set them to state
+
+  /**
+   * Effect hook to filter and collect all image URLs from the current chat messages.
+   * This effect runs whenever the 'messages' array changes.
+   */
 
   useEffect(()=>{
     setMsgImages(
